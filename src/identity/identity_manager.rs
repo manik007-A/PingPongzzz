@@ -1,3 +1,5 @@
+use hostname::get;
+
 pub struct Identity {
     pub hostname: String,
     pub nickname: String,
@@ -6,8 +8,14 @@ pub struct Identity {
 
 impl Identity {
     pub fn new() -> Self {
+
+        let hostname = get()
+            .unwrap_or_default()
+            .to_string_lossy()
+            .to_string();
+
         Self {
-            hostname: String::from("UNKNOWN-PC"),
+            hostname,
             nickname: String::from("Guest"),
             fingerprint: String::from("NOT_GENERATED"),
         }
